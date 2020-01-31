@@ -52,6 +52,34 @@ class Waiter
             end
             memo
         end
-        # binding.pry
+    end
+
+    def worst_tippers_meal
+        #find a waiters worst tipping customer instance
+        #return that meal object
+        worst_tipped_meal = meals.min do |meal_a, meal_b|
+            meal_a.tip <=> meal_b.tip
+        end
+    end
+
+    def self.most_experienced_waiter
+        all.max_by {|waiter| waiter.yrs_experience}
+    end
+
+    def self.least_experienced_waiter
+        all.min_by {|waiter| waiter.yrs_experience}
+    end
+
+    def avg_tips
+        tip_total = meals.sum {|meal| meal.tip}
+        tip_avg = tip_total/meals.count
+    end
+
+    def self.most_experienced_waiter_tips
+        most_experienced_waiter.avg_tips
+    end
+
+    def self.least_experienced_waiter_tips
+        least_experienced_waiter.avg_tips
     end
 end
